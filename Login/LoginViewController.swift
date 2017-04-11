@@ -18,17 +18,69 @@ class LoginViewController: UIViewController {
     }
 
     // TODO: instantiate the views needed for your project
+    let loginLabel = UILabel(frame:CGRect(x: 0, y: 0,
+                                    width: UIScreen.main.bounds.width,
+                                    height: 100) )
+    
+    let loginView = UIView(frame:CGRect(x: 0, y: 0,
+                                        width: UIScreen.main.bounds.width*0.9,
+                                        height: UIScreen.main.bounds.height/3) )
+    let account = UITextField()
+    let password = UITextField()
+    let loginButt = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Constants.backgroundColor
         
         // TODO: Add your views either as subviews of `view` or subviews of each other using `addSubview`
-        
+        view.addSubview(loginLabel)
+        view.addSubview(loginView)
+        loginView.addSubview(account)
+        loginView.addSubview(password)
+        loginView.addSubview(loginButt)
         // TODO: layout your views using frames or AutoLayout
+        // Label
+        loginLabel.text = "Login View Controller"
+        loginLabel.textColor = UIColor.white
+        loginLabel.font = UIFont(name: loginLabel.font.fontName, size: 30)
+        loginLabel.textAlignment = NSTextAlignment.center
+        loginLabel.center = CGPoint(x:UIScreen.main.bounds.width/2, y:UIScreen.main.bounds.height/5)
+        
+        // loginView
+        loginView.center = view.center
+        loginView.backgroundColor = UIColor.white
+        
+        // account and password
+        account.placeholder = "berkeley.edu account"
+        password.placeholder = "Password"
+        
+        account.frame = CGRect(x: 0, y: 0,
+                               width: loginView.bounds.width,
+                               height: loginView.bounds.height/4)
+        password.frame = CGRect(x: 0, y: loginView.bounds.height/4*1.5,
+                               width: loginView.bounds.width,
+                               height: loginView.bounds.height/4)
+        
+        // loginButton
+        loginButt.frame = CGRect(x: 0, y: loginView.bounds.height/4*3,
+                                width: loginView.bounds.width/2,
+                                height: loginView.bounds.height/4)
+        loginButt.backgroundColor = view.backgroundColor
+        loginButt.center = CGPoint(x:loginView.bounds.width/2, y:loginView.bounds.height/4*3)
+        loginButt.setTitle("Login", for: .normal)
+        loginButt.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+
+
+        
+        
+        
     }
     
     // TODO: create an IBAction for your login button
+    func buttonAction(sender: AnyObject){
+        authenticateUser(username:account.text, password:password.text)
+    }
     
     
     
